@@ -40,10 +40,10 @@ class User: NSObject {
     class var currentUser: User? {
         get {
             if _currentUser == nil {
-                var data = NSUserDefaults.standardUserDefaults().objectForKey(currentUserKey) as? NSData
+                let data = NSUserDefaults.standardUserDefaults().objectForKey(currentUserKey) as? NSData
                 if data != nil {
                     do {
-                        var dictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions(rawValue:0)) as! NSDictionary
+                        let dictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions(rawValue:0)) as! NSDictionary
                         _currentUser = User(dictionary: dictionary)
                     }
                     catch {
@@ -58,7 +58,7 @@ class User: NSObject {
             
             if _currentUser != nil {
                 do {
-                    var data = try NSJSONSerialization.dataWithJSONObject((user!.dictionary),
+                    let data = try NSJSONSerialization.dataWithJSONObject((user!.dictionary),
                         options: NSJSONWritingOptions(rawValue:0))
                     NSUserDefaults.standardUserDefaults().setObject(data, forKey: currentUserKey)
                 }

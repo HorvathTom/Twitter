@@ -31,7 +31,7 @@ class TwitterClient: BDBOAuth1SessionManager {
             parameters: params,
             success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
                 print("home timeline: \(response)")
-                var tweets = Tweet.tweetsWithArray(response as! [NSDictionary])
+                let tweets = Tweet.tweetsWithArray(response as! [NSDictionary])
                 completion(tweets: tweets, error: nil)
             },
             failure: { (operation: NSURLSessionDataTask?, error: NSError!) -> Void in
@@ -69,7 +69,7 @@ class TwitterClient: BDBOAuth1SessionManager {
                     parameters: nil,
                     success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
                         print("user: \(response)")
-                        var user = User(dictionary: response as! NSDictionary)
+                        let user = User(dictionary: response as! NSDictionary)
                         print("user: \(user.name)")
                         User.currentUser = user
                         self.loginCompletion?(user: user, error: nil)
