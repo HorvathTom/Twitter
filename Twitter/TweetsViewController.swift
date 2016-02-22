@@ -38,6 +38,16 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         User.currentUser?.logout()
     }
     
+    @IBAction func onRetweet(sender: AnyObject) {
+        print("retweet tweet#\(sender.tag)")
+        tweets![sender.tag].retweet()
+    }
+    
+    @IBAction func onFavorite(sender: AnyObject) {
+        print("favorite tweet#\(sender.tag)")
+        tweets![sender.tag].favorite()
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let tweet = tweets![indexPath.row]
         let dateFormatter = NSDateFormatter()
@@ -50,6 +60,8 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.tweetLabel.text = tweet.text
         cell.profileImageView.setImageWithURL(NSURL(string: (tweet.user?.profileImageUrl)!)!)
         cell.profileImageView.layer.cornerRadius = 3.0
+        cell.retweetButton.tag = indexPath.row
+        cell.favoriteButton.tag = indexPath.row
         return cell
     }
     

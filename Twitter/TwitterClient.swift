@@ -25,6 +25,36 @@ class TwitterClient: BDBOAuth1SessionManager {
         return Static.instance
     }
     
+    func favoriteWithParams(params: NSDictionary?, completion: (tweet: Tweet?, error: NSError?) -> ()) {
+        POST(
+            "1.1/favorites/create.json",
+            parameters: params,
+            success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
+                print("favorited: \(response)")
+                let tweet = Tweet(dictionary: response as! NSDictionary)
+                completion(tweet: tweet, error: nil)
+            },
+            failure: { (operation: NSURLSessionDataTask?, error: NSError!) -> Void in
+                print("error favoriting tweet")
+                completion(tweet: nil, error: error)
+        })
+    }
+    
+    func retweetWithParams(params: NSDictionary?, completion: (tweet: Tweet?, error: NSError?) -> ()) {
+        /*POST(
+            "1.1/statuses/retweets/" + (params!["id_str"] as! String) + ".json",
+            parameters: params,
+            success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
+                print("retweeted: \(response)")
+                let tweet = Tweet(dictionary: response as! NSDictionary)
+                completion(tweet: tweet, error: nil)
+            },
+            failure: { (operation: NSURLSessionDataTask?, error: NSError!) -> Void in
+                print("error retweeting tweet")
+                completion(tweet: nil, error: error)
+        })*/
+    }
+    
     func homeTimelineWithParams(params: NSDictionary?, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
         GET(
             "1.1/statuses/home_timeline.json",
