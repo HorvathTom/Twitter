@@ -14,12 +14,16 @@ class Tweet: NSObject {
     var createdAtString: String?
     var createdAt: NSDate?
     var dict: NSDictionary?
+    var favoriteCount: Int
+    var retweetCount: Int
     
     init(dictionary: NSDictionary) {
         dict = dictionary
         user = User(dictionary: dictionary["user"] as! NSDictionary)
         text = dictionary["text"] as? String
         createdAtString = dictionary["created_at"] as? String
+        favoriteCount = dictionary["favorite_count"] as! Int
+        retweetCount = dictionary["retweet_count"] as! Int
         
         let formatter = NSDateFormatter()
         formatter.dateFormat = "EEE MMM d HH:mm:ss Z y"
@@ -27,13 +31,13 @@ class Tweet: NSObject {
     }
     
     func retweet() {
-        TwitterClient.sharedInstance.retweetWithParams(dict) { (tweet, error) -> () in
+        TwitterClient.sharedInstance.retweetWithParams(["id": dict!["id"]!]) { (tweet, error) -> () in
             print("retweet returned")
         }
     }
     
     func favorite() {
-        TwitterClient.sharedInstance.favoriteWithParams(dict) { (tweet, error) -> () in
+        TwitterClient.sharedInstance.favoriteWithParams(["id": dict!["id"]!]) { (tweet, error) -> () in
             print("favorite returned")
         }
     }

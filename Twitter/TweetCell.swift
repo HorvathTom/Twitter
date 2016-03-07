@@ -9,6 +9,8 @@
 import UIKit
 
 class TweetCell: UITableViewCell {
+    
+    var viewController: UIViewController!
 
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var handleLabel: UILabel!
@@ -29,7 +31,13 @@ class TweetCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func onProfileImageTap() {
+    func onProfileImageTap(sender: UITapGestureRecognizer) {
         print("tapped profile image")
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let profileViewController = storyboard.instantiateViewControllerWithIdentifier("ProfileViewControllerID") as! ProfileViewController
+        let tweetsViewController = viewController as! TweetsViewController
+        profileViewController.user = tweetsViewController.tweets![sender.view!.tag].user
+        viewController.navigationController?.pushViewController(profileViewController, animated: true)
+        //viewController.presentViewController(profileViewController, animated: true, completion: nil)
     }
 }

@@ -61,10 +61,13 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.retweetButton.tag = indexPath.row
         cell.favoriteButton.tag = indexPath.row
         
-        let tapGesture = UITapGestureRecognizer(target: cell, action: "onProfileImageTap")
+        let tapGesture = UITapGestureRecognizer(target: cell, action: "onProfileImageTap:")
         cell.profileImageView.addGestureRecognizer(tapGesture)
         cell.profileImageView.setImageWithURL(NSURL(string: (tweet.user?.profileImageUrl)!)!)
         cell.profileImageView.layer.cornerRadius = 3.0
+        cell.profileImageView.tag = indexPath.row
+        
+        cell.viewController = self
 
         return cell
     }
@@ -77,16 +80,19 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
-
-    
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if let cell = sender as? UITableViewCell {
+            let indexPath = tweetsTableView.indexPathForCell(cell)
+            let tweet = tweets![indexPath!.row]
+            
+            let tweetDetailsViewController = segue.destinationViewController as! TweetDetailsViewController
+            tweetDetailsViewController.tweet = tweet
+            tweetDetailsViewController.tweetIndex = indexPath!.row
+        }
     }
-    */
-
 }

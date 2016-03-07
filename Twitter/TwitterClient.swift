@@ -56,9 +56,9 @@ class TwitterClient: BDBOAuth1SessionManager {
     }
     
     func retweetWithParams(params: NSDictionary?, completion: (tweet: Tweet?, error: NSError?) -> ()) {
-        /*POST(
-            "1.1/statuses/retweets/" + (params!["id_str"] as! String) + ".json",
-            parameters: params,
+        POST(
+            "1.1/statuses/retweet/" + "\((params!["id"])!)" + ".json",
+            parameters: NSDictionary(),
             success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
                 print("retweeted: \(response)")
                 let tweet = Tweet(dictionary: response as! NSDictionary)
@@ -66,8 +66,9 @@ class TwitterClient: BDBOAuth1SessionManager {
             },
             failure: { (operation: NSURLSessionDataTask?, error: NSError!) -> Void in
                 print("error retweeting tweet")
+                print(error.localizedDescription)
                 completion(tweet: nil, error: error)
-        })*/
+        })
     }
     
     func homeTimelineWithParams(params: NSDictionary?, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
