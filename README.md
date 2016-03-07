@@ -59,7 +59,7 @@ Describe any challenges encountered while building the app.
 
 # Project 5 - Twitter
 
-Time spent: 1 hour spent in total
+Time spent: 7 hour spent in total
 
 ## User Stories
 
