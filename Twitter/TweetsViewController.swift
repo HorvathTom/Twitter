@@ -58,10 +58,14 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.handleLabel.text = "@" + (tweet.user?.screenname)!
         cell.timestampLabel.text = dateFormatter.stringFromDate(tweet.createdAt!)
         cell.tweetLabel.text = tweet.text
-        cell.profileImageView.setImageWithURL(NSURL(string: (tweet.user?.profileImageUrl)!)!)
-        cell.profileImageView.layer.cornerRadius = 3.0
         cell.retweetButton.tag = indexPath.row
         cell.favoriteButton.tag = indexPath.row
+        
+        let tapGesture = UITapGestureRecognizer(target: cell, action: "onProfileImageTap")
+        cell.profileImageView.addGestureRecognizer(tapGesture)
+        cell.profileImageView.setImageWithURL(NSURL(string: (tweet.user?.profileImageUrl)!)!)
+        cell.profileImageView.layer.cornerRadius = 3.0
+
         return cell
     }
     
@@ -72,6 +76,8 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             return 0
         }
     }
+    
+
     
     /*
     // MARK: - Navigation
