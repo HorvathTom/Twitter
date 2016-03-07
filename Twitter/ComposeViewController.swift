@@ -16,13 +16,18 @@ class ComposeViewController: UIViewController {
     @IBOutlet weak var tweetTextView: UITextView!
     
     @IBAction func onTweet(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: {})
+        Tweet.tweet(tweetTextView.text)
+
+        self.dismissViewControllerAnimated(true, completion: {
+            self.tweetTextView.text = ""
+        })
     }
     
     @IBAction func onCancel(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: {})
+        self.dismissViewControllerAnimated(true, completion: {
+            self.tweetTextView.text = ""
+        })
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,13 +37,18 @@ class ComposeViewController: UIViewController {
         profileNameLabel.text = User.currentUser?.name
         profileHandleLabel.text = "@" + (User.currentUser?.screenname)!
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        tweetTextView.becomeFirstResponder()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
     /*
     // MARK: - Navigation
 

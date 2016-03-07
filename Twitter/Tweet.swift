@@ -38,6 +38,12 @@ class Tweet: NSObject {
         }
     }
     
+    class func tweet(status: String) {
+        TwitterClient.sharedInstance.tweetWithParams(["status": status]) { (tweet, error) -> () in
+            print("post tweet returned")
+        }
+    }
+    
     class func tweetsWithArray(array: [NSDictionary]) -> [Tweet] {
         var tweets = [Tweet]()
         
